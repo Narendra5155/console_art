@@ -46,8 +46,11 @@ int main(char argc, char *argv[]){
         for(int i=1;i<pivit;i++)
             printf("%2d|                                       |\n",i);
         printf("  |%s|\n",name);
-        for(int i=pivit+1;i<=20;i++)
+        for(int i=pivit+1;i<=20;i++){
+            if(i==1)
+                continue;
             printf("%2d|                                       |\n",i);
+        }
             printf("  |---------------------------------------|\n");
         animate(name,direction);
         if(name[0]!=' ')
