@@ -1,8 +1,9 @@
 #include<stdio.h>
-#include<windows.h>
+//#include<windows.h>
 #include<string.h>
 #include<unistd.h>
-#include<conio.h>
+#include<stdlib.h>
+//#include<conio.h>
 #define microsecond 1000
 #define Max_size 39
 void animate(char* text,int direction){
@@ -38,10 +39,12 @@ int main(int argc, char *argv[]){
    // name=realloc(name,30*sizeof(char));
     strcat(name,space);
     while(1){
+        printf("\033[?25l");
+        printf("\033[H\033[J");
         pivit=pivit+a;
         if(pivit>=20|| pivit<=1)
         a*=-1;
-        system("cls");
+        //system("cls");
             printf(" _______________________________________ \n");
         for(int i=1;i<pivit;i++)
             printf("|                                       |\n");
@@ -52,6 +55,7 @@ int main(int argc, char *argv[]){
             printf("|                                       |\n");
         }
             printf("|---------------------------------------|\n");
+            printf("\033[?25h");
         animate(name,direction);
         if(name[0]!=' ')
         direction=1;
