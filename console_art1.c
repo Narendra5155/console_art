@@ -16,7 +16,7 @@ void animate(char* text,int direction){
         text[i]=temp[(i+1)%length];
     }
 }
-int main(char argc, char *argv[]){
+int main(int argc, char *argv[]){
     if(argc<1){
         printf("Please Enter the word to animate\n");
         return 1;
@@ -42,16 +42,16 @@ int main(char argc, char *argv[]){
         if(pivit>=20|| pivit<=1)
         a*=-1;
         system("cls");
-            printf("  |---------------------------------------|\n");
+            printf(" _______________________________________ \n");
         for(int i=1;i<pivit;i++)
-            printf("%2d|                                       |\n",i);
-        printf("  |%s|\n",name);
+            printf("|                                       |\n");
+        printf("|%s|\n",name);
         for(int i=pivit+1;i<=20;i++){
             if(i==1)
                 continue;
-            printf("%2d|                                       |\n",i);
+            printf("|                                       |\n");
         }
-            printf("  |---------------------------------------|\n");
+            printf("|---------------------------------------|\n");
         animate(name,direction);
         if(name[0]!=' ')
         direction=1;
