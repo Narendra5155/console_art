@@ -45,33 +45,30 @@ int main(int argc, char *argv[]){
     space[empty_space]='\0';
     strcat(name,space);
 
+    printf("\033[H\033[J");
+    printf(" _______________________________________ \n");
+        
+        for(int i=1;i<=21;i++)
+             printf("|                                       |\n");
+    printf("|---------------------------------------|\n");
 
     while(1){
-        printf("\033[?25l");                            //hiding the cursor
-        printf("\033[H\033[J");                         //clearing the console
+        printf("\033[?25l");   
+        printf("\033[%d;1H\033[K",pivit+2);
+        printf("|                                       |");                         //hiding the cursor                   
         pivit=pivit+a;                                  //pivit increment or decrement
         if(pivit>=20|| pivit<=1)                        // change the pivit direction once it reaches an extreme
         a*=-1;
+        printf("\033[%d;2H\033[K",pivit+2);
+        printf("%s|",name);
 
         // Storing the output data in a single frame to reduce flicker
-        strcat(output," _______________________________________ \n");
         
-        for(int i=1;i<pivit;i++)
-             strcat(output,"|                                       |\n");
-        
-        strcat(output,"|");
-        strcat(output,name);
-        strcat(output,"|\n");
-        
-        for(int i=pivit+1;i<=20;i++){
-            if(i==1)
-                continue;
-            strcat(output,"|                                       |\n");
-        }
-        
-        strcat(output,"|---------------------------------------|\n");
-        printf("%s",output);
-        printf("\033[?25h");
+        //strcat(output,"|");
+        //strcat(output,name);
+        //strcat(output,"|\n");
+        //printf("%s",output);
+        //printf("\033[?25h");
         //animate the next frame
         animate(name,direction);
         if(name[0]!=' ')
