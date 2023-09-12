@@ -17,7 +17,7 @@ void animate(char* text,int direction){
     }
 }
 int main(int argc, char *argv[]){
-    if(argc<1){
+    if(argv[argc]==NULL){
         printf("Please Enter the word to animate\n");
         return 1;
     }
