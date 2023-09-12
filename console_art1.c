@@ -2,8 +2,6 @@
 #include<string.h>
 #include<unistd.h>
 #include<stdlib.h>
-#include<time.h>
-#include<math.h>
 #define microsecond 1000
 #define Max_size 40
 
@@ -27,11 +25,10 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    srand(time(0));
     //variable decleration
     int size,direction,pivit,a;
     a=-2;                                               //downword movement step
-    pivit=floor((rand()/RAND_MAX)*16)+2;                                           //initial position
+    pivit=9;                                           //initial position
     direction=1;                                        //direction of the lateral movement
 
     char* name;
@@ -56,12 +53,12 @@ int main(int argc, char *argv[]){
 
     while(1){
         printf("\033[?25l");                            //hiding the cursor   
-        printf("\033[%d;1H\033[K",pivit+2);
+        printf("\033[%d;1H\033[K",pivit+1);
         printf("|                                        |");                                         
         pivit=pivit+a;                                  //pivit increment or decrement
-        if(pivit>=20|| pivit<=1)                        // change the pivit direction once it reaches an extreme
+        if(pivit>=21|| pivit<=1)                        // change the pivit direction once it reaches an extreme
         a*=-1;
-        printf("\033[%d;2H\033[K",pivit+2);
+        printf("\033[%d;2H\033[K",pivit+1);
         printf("%s|",name);
 
         animate(name,direction);
