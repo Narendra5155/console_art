@@ -121,11 +121,12 @@ int main(int argc, char *argv[]){
     mask[i]=' ';
     mask[strlen(name)]='\0';
     
+    printf("\033[?25l");                            //hiding the cursor 
+    
     printBox();
 
     while(1){
-        //erasing the text from previous loop
-        printf("\033[?25l");                            //hiding the cursor   
+        //erasing the text from previous loop  
         printf("\033[%d;%dH",y+1,x+1);                  //moving the cursor the coordinate
         printf("%s",mask);                              //printing the mask           
         
