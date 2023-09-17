@@ -3,39 +3,41 @@
 #include<unistd.h>
 #include<stdlib.h>
 #define microsecond 1000
-int Row_size=39;
-int Column_size=21;
-//time delay between frames
-int time =100;
 
-void printHelp(){
+void printHelp(int row_size,int column_size,int time){
     printf("The syntax is \n .\\console_art1 -t \"YOUR TEXT TO ANIMATE\"");
     printf("\nUse the \n-h --help\t to print this messeage\n");
-    printf("-r --rows\t to change to size of rows DEFAULT=%d [1-80]\n",Row_size);
-    printf("-c --column\t to change the size of column DEFAULT=%d [0-29]\n",Column_size);
+    printf("-r --rows\t to change to size of rows DEFAULT=%d [1-80]\n",row_size);
+    printf("-c --column\t to change the size of column DEFAULT=%d [0-29]\n",column_size);
     printf("-t --text \t to use custom text\n");
     printf("-q --time \t to set the time delay between frames DEFAULT=%dms\n",time);
     exit(1);
 }
 
-void printBox(){
+void printBox(int column,int row){
     printf("\033[H\033[J");
     printf(" ");
-        for(int i=1;i<=Row_size+1;i++)
+        for(int i=1;i<=column+1;i++)
             printf("_");
     printf(" \n");
         
-        for(int i=1;i<=Column_size;i++){
-             printf("|\033[%d;%dH",i+1,Row_size+3);
+        for(int i=1;i<=row;i++){
+             printf("|\033[%d;%dH",i+1,column+3);
              printf("|\n");
         }
     printf("|");
-        for(int i=0;i<=Row_size;i++)
+        for(int i=0;i<=column;i++)
             printf("-");
     printf("|\n");
 }
 
 int main(int argc, char *argv[]){
+    
+    int Row_size=39;
+    int Column_size=21;
+    //time delay between frames
+    int time =100;
+
     //setting a default text
     char* name;
     name=(char*)calloc(4,sizeof(char));
@@ -43,7 +45,7 @@ int main(int argc, char *argv[]){
 
     for(int iarg=1;iarg<argc;iarg++){
     if(strcmp(argv[iarg],"-h")==0|| strcmp(argv[iarg],"--help")==0)
-        printHelp();
+        printHelp(Row_size,Column_size,time);
     else if(strcmp(argv[iarg],"-t")==0 || strcmp(argv[iarg],"--text")==0){
         if(iarg+1==argc)
             {
@@ -53,7 +55,7 @@ int main(int argc, char *argv[]){
         name=(char*)calloc(strlen(argv[iarg]),sizeof(char));
         if(name==NULL){
             fprintf(stderr,"Error: invalid string");
-            printHelp();
+            printHelp(Row_size,Column_size,time);
         }
         strcpy(name,argv[iarg]);
     }
@@ -66,7 +68,7 @@ int main(int argc, char *argv[]){
         
         if(sscanf(argv[iarg],"%d",&Row_size)!=1 || Row_size>80 || Row_size<0){
         fprintf(stderr,"Error: Invalid size of rows = %s\n",argv[iarg]);
-        printHelp();
+        printHelp(Row_size,Column_size,time);
         }
     }
     else if(strcmp(argv[iarg],"-c")==0 || strcmp(argv[iarg],"--column")==0){
@@ -78,7 +80,7 @@ int main(int argc, char *argv[]){
     
     if(sscanf(argv[iarg],"%d",&Column_size)!=1 || Column_size>30 || Column_size<0){
     fprintf(stderr,"Error: Invalid size of column = %s\n",argv[iarg]);
-    printHelp();
+    printHelp(Row_size,Column_size,time);
     }
     
     }
@@ -91,12 +93,12 @@ int main(int argc, char *argv[]){
     
     if(sscanf(argv[iarg],"%d",&time)!=1 || time<0){
     fprintf(stderr,"Error: Invalid amount of time = %s\n",argv[iarg]);
-    printHelp();
+    printHelp(Row_size,Column_size,time);
     }
     }
     else{
         fprintf(stderr,"Error : Invalid flag\n");
-        printHelp();
+        printHelp(Row_size,Column_size,time);
     }
     }
 
@@ -123,7 +125,7 @@ int main(int argc, char *argv[]){
     
     printf("\033[?25l");                            //hiding the cursor 
     
-    printBox();
+    printBox(Row_size,Column_size);
 
     while(1){
         //erasing the text from previous loop  
